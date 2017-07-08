@@ -1,0 +1,26 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "blog",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node build/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pickcle/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "node",
+    "mongodb",
+    "vps"
+  ],
+  "author": "Pickcle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pickcle/blog/issues"
+  },
+  "homepage": "https://github.com/Pickcle/blog#readme"
+}
