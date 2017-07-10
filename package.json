@@ -1,7 +1,7 @@
 {
-  "name": "vue-project",
+  "name": "blog",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "A node+mongodb+webpack+vue project",
   "author": "Pickcle",
   "private": true,
   "scripts": {
