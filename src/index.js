@@ -4,7 +4,8 @@ import Vue from 'vue'
 import router from './router'
 
 import SideBar from './components/SideBar.vue'
-import Background from './components/Background.vue'
+
+import './style/common.sass'
 
 Vue.config.productionTip = false
 
@@ -13,7 +14,6 @@ new Vue({
   el: '#app',
   router,
   components: {
-    SideBar,
-    Background
+    SideBar
   }
 })
