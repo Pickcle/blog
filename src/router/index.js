@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Home from '../containers/Home.vue'
 
-import sidebarConfig from '../config/sidebarConfig.js'
+import navigationConfig from 'src/config/navigation.config.js'
 
 Vue.use(Router)
 
@@ -25,7 +25,7 @@ const getComponentName = name => name.replace(/\b\w/g, word => word.toUpperCase(
 
 let componentName
 
-sidebarConfig.forEach(value => {
+navigationConfig.forEach(value => {
   componentName = getComponentName(value)
   const route = {
     path: `/${value}`,
