@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import router from './router'
 
-import SideBar from './components/SideBar.vue'
+import App from './App.vue'
 
 import './style/common.sass'
 
@@ -14,6 +14,6 @@ new Vue({
   el: '#app',
   router,
   components: {
-    SideBar
+    App
   }
 })

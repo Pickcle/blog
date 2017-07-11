@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side-bar">
     SideBar
   </div>
 </template>
@@ -9,5 +9,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
+  .side-bar
+    width: 300px
 </style>
