@@ -1,6 +1,6 @@
 <template>
   <div class="navigation-panel">
-    <navigation-item v-for="(item, idx) in config" :name="item" :key="idx"/>
+    <navigation-item v-for="(item, idx) in config" :name="item" :key="idx" />
   </div>
 </template>
 

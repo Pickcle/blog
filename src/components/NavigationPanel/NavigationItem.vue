@@ -14,5 +14,7 @@
 
 <style lang="sass" scoped>
   .navigation-item
-    height: 60px
+    height: 40px
+    line-height: 40px
+    padding: 10px
 </style>
