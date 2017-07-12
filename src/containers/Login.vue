@@ -1,6 +1,6 @@
 <template>
-  <div>
-    AppleDemo
+  <div class="login">
+
   </div>
 </template>
 
@@ -9,5 +9,5 @@
   }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
 </style>

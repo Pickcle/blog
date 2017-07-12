@@ -1,3 +1,4 @@
 export default [
-  'apple-demo'
+  'register',
+  'login'
 ]
