@@ -1,5 +1,5 @@
 <template>
-  <div class="side-bar">
+  <div class="side-bar w-100">
     <navigation-panel />
   </div>
 </template>
@@ -9,6 +9,7 @@
 
   export default {
     data () {
+      return {}
     },
 
     components: {
@@ -19,6 +20,5 @@
 
 <style lang="sass" scoped>
   .side-bar
-    width: 300px
     background: #fff
 </style>

@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div class="app">
     <img src="./assets/bg.jpg" />
-    <side-bar class="f-left p-rel c-default" />
-    <router-view class="f-left p-rel c-default" />
+    <div class="left-part f-left p-rel c-default">
+      <side-bar />
+    </div>
+    <div class="right-part f-left p-rel c-default">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -12,6 +16,9 @@
   export default {
     components: {
       SideBar
+    },
+
+    mounted () {
     }
   }
 </script>
@@ -24,4 +31,10 @@
     height: 100%
     width: 100%
     object-fit: cover
+
+  .left-part
+    width: 20%
+
+  .right-part
+    width: 80%
 </style>

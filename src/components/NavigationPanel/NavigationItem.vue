@@ -1,13 +1,24 @@
 <template>
-  <div class="navigation-item w-100">
+  <div class="navigation-item t-center w-100" @click="navigate">
     {{ name }}
   </div>
 </template>
 
 <script>
+  // import axios from 'axios'
+
   export default {
     props: {
       name: String
+    },
+
+    methods: {
+      navigate () {
+        this.$router.push(this.name)
+        // axios.get('http://localhost:9091/').then(result => {
+        //   console.log('axios:', result)
+        // })
+      }
     }
   }
 </script>
@@ -16,5 +27,7 @@
   .navigation-item
     height: 40px
     line-height: 40px
-    padding: 10px
+
+    &:not(:last-child)
+      border-bottom: 1px solid #000
 </style>
