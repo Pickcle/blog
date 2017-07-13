@@ -7,8 +7,6 @@ var utils = require('./utils.js')
 var MongoClient = require('mongodb').MongoClient
 var DB = 'mongodb://localhost:27017/node'
 
-// var mc = MongoClient.connect(DB)
-
 var app = express()
 var server = http.createServer(app)
 
@@ -58,26 +56,6 @@ const signup = (req, res) => {
       }
     })
   })
-
-
-
-  // mc.then(db => {
-  //   db.collection('user').find()
-  // }).then(db => {
-  //   db.collection('user').insert({
-  //     user_name,
-  //     password
-  //   }, (err, result) => {
-  //     if (err) {
-  //       console.log(err)
-  //       res.write(s({ result: 0 }))
-  //       res.end()
-  //       return
-  //     }
-  //     res.write(s({ ok: 1 }))
-  //     res.end()
-  //   })
-  // })
 }
 
 const login = req => {
