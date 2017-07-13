@@ -7,7 +7,7 @@ var utils = require('./utils.js')
 var MongoClient = require('mongodb').MongoClient
 var DB = 'mongodb://localhost:27017/node'
 
-var mc = MongoClient.connect(DB)
+// var mc = MongoClient.connect(DB)
 
 var app = express()
 var server = http.createServer(app)
@@ -23,6 +23,10 @@ async function waitUntilResolve (promise) {
   await promise
 }
 
+const connectDb = callback => {
+  MongoClient.connect(DB, callback)
+}
+
 /**
  * @return 0：数据库操作失败，1：已注册过，2：注册成功
  */
@@ -30,23 +34,50 @@ const signup = (req, res) => {
   const user_name = req.query.user_name
   const password = req.query.password
 
-  mc.then(db => {
-    db.collection('user').find()
-  }).then(db => {
-    db.collection('user').insert({
-      user_name,
-      password
-    }, (err, result) => {
-      if (err) {
-        console.log(err)
-        res.write(s({ result: 0 }))
+  connectDb((err, db) => {
+    db.collection('user').findOne({ user_name }, (err, doc) => {
+      if (doc) {
+        res.write(s({ result: 1 }))
         res.end()
-        return
+        db.close()
+      } else {
+        connectDb((err, db) => {
+          db.collection('user').insert({
+            user_name,
+            password
+          }, (err, result) => {
+            if (err) {
+              res.write(s({ result: 0 }))
+            } else {
+              res.write(s({ result: 2 }))
+            }
+            res.end()
+            db.close()
+          })
+        })
       }
-      res.write(s({ ok: 1 }))
-      res.end()
     })
   })
+
+
+
+  // mc.then(db => {
+  //   db.collection('user').find()
+  // }).then(db => {
+  //   db.collection('user').insert({
+  //     user_name,
+  //     password
+  //   }, (err, result) => {
+  //     if (err) {
+  //       console.log(err)
+  //       res.write(s({ result: 0 }))
+  //       res.end()
+  //       return
+  //     }
+  //     res.write(s({ ok: 1 }))
+  //     res.end()
+  //   })
+  // })
 }
 
 const login = req => {
