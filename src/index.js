@@ -15,5 +15,13 @@ new Vue({
   router,
   components: {
     App
+  },
+  created () {
+    window.app = this
   }
 })
+
+// 弹出消息
+window.p = (msg) => {
+  window.app.$emit('showMsg', msg)
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app w-100">
     <img src="./assets/bg.jpg" />
     <div class="left-part f-left p-rel c-default">
       <side-bar />
@@ -7,18 +7,20 @@
     <div class="right-part f-left p-rel c-default">
       <router-view />
     </div>
+    <div class="message-box w-100">
+      <message-box />
+    </div>
   </div>
 </template>
 
 <script>
   import SideBar from './components/SideBar.vue'
+  import MessageBox from './components/MessageBox.vue'
 
   export default {
     components: {
-      SideBar
-    },
-
-    mounted () {
+      SideBar,
+      MessageBox
     }
   }
 </script>
@@ -37,4 +39,8 @@
 
   .right-part
     width: 80%
+
+  .message-box
+    position: absolute
+    top: 50%
 </style>
