@@ -2,11 +2,11 @@
   <div class="register">
     <div>
       <span class="d-i-block m-20">user name:</span>
-      <input type="text" v-model="userName" />
+      <input type="text" v-model="user_name" />
     </div>
     <div>
       <span class="d-i-block m-20">enter password:</span>
-      <input type="password" v-model="pwd" />
+      <input type="password" v-model="password" />
     </div>
     <button @click="onSignupClick">
       Sign up
@@ -15,17 +15,33 @@
 </template>
 
 <script>
+  import apis from 'src/apis'
+
   export default {
     data () {
       return {
-        userName: '',
-        pwd: ''
+        user_name: '',
+        password: ''
       }
     },
 
     methods: {
       onSignupClick () {
-        console.log(this.userName, this.pwd)
+        if (!this.user_name || !this.password) {
+          window.p('用户名或密码不能为空')
+          return
+        }
+        apis.signup(this.user_name, this.password).then(result => {
+          if (result.result === 0) {
+            window.p('注册失败')
+          } else if (result.result === 1) {
+            window.p('重复注册')
+          } else if (result.result === 2) {
+            window.p('注册成功')
+          }
+        }, error => {
+          window.p('注册失败：' + error)
+        })
       }
     }
   }
