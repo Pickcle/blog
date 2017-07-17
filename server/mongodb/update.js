@@ -1,7 +1,10 @@
 var MongoClient = require('mongodb').MongoClient
 var DB_CONN_STR = 'mongodb://localhost:27017/node'
 
+var _db
+
 MongoClient.connect(DB_CONN_STR, function (err, db) {
+  _db = db
   console.log('connect succeeded')
   var collection = db.collection('user')
   var data = {
@@ -19,6 +22,13 @@ MongoClient.connect(DB_CONN_STR, function (err, db) {
       return
     }
     console.log('result: ', result.result)
-    db.close()
+    // db.close()
   })
 })
+
+setTimeout(function () {
+  _db.collection('user').find().toArray(function (err, result) {
+    console.log('result:', result)
+    // db.close()
+  })
+}, 5000)
