@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '../containers/Home.vue'
+import Home from '../pages/Home.vue'
 
 import navigationConfig from 'src/config/navigation.config.js'
 
@@ -29,7 +29,7 @@ navigationConfig.forEach(value => {
   componentName = getComponentName(value)
   const route = {
     path: `/${value}`,
-    component: require(`../containers/${componentName}.vue`)
+    component: require(`../pages/${componentName}.vue`)
   }
   routes.push(route)
 })

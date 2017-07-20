@@ -18,6 +18,12 @@
   import MessageBox from './components/MessageBox.vue'
 
   export default {
+    computed: {
+      screenHeight () {
+        return window.innerHeight
+      }
+    },
+
     components: {
       SideBar,
       MessageBox
@@ -35,10 +41,13 @@
     object-fit: cover
 
   .left-part
+    left: 15%
     width: 20%
 
   .right-part
-    width: 80%
+    left: 15%
+    width: 50%
+    margin: 0 20px
 
   .message-box
     position: absolute
