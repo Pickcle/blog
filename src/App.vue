@@ -18,12 +18,6 @@
   import MessageBox from './components/MessageBox.vue'
 
   export default {
-    computed: {
-      screenHeight () {
-        return window.innerHeight
-      }
-    },
-
     components: {
       SideBar,
       MessageBox
