@@ -1,6 +1,6 @@
 <template>
   <div>
-    NavigationPanel
+    Navigation
   </div>
 </template>
 
