@@ -18,5 +18,6 @@
     font-size: 26px
 
   .desc
+    line-height: 30px
     font-size: 16px
 </style>
