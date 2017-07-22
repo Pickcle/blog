@@ -1,6 +1,6 @@
 <template>
   <div class="app w-100">
-    <img src="./assets/bg.jpg" />
+    <img src="./images/bg.jpg" />
     <div class="left-part f-left p-rel c-default">
       <side-bar />
     </div>
