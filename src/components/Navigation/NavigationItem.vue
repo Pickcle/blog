@@ -24,7 +24,7 @@
 
     methods: {
       navigate () {
-        window.app.$emit('navigate', { route: this.config.route })
+        window.app.$emit('navigate', this.config.route)
         this.$router.push(this.config.route)
       }
     }

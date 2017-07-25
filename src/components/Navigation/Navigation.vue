@@ -34,13 +34,18 @@
     },
 
     mounted () {
-      window.app.$on('navigate', (e) => {
-        const route = e.route
+      window.app.$on('navigate', (routeName) => {
         this.navList.forEach(itemData => {
-          itemData.isSelected = itemData.config.route === route
+          itemData.isSelected = itemData.config.route === routeName
         })
         this.$forceUpdate()
       })
+
+      if (this.$route.path !== '/') {
+        window.app.$emit('navigate', this.$route.path.slice(1))
+      }
+
+      console.log('xhjLog: router', this.$route.path)
     }
   }
 </script>
