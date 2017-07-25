@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '../pages/Home.vue'
+import Search from '../pages/Search.vue'
 
 Vue.use(Router)
 
@@ -9,12 +10,12 @@ const router = new Router()
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     component: Home
   },
   {
-    path: '*',
-    component: Home
+    path: '/search',
+    component: Search
   }
 ]
 
