@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 bg-white">
+  <div class="w-100">
     <top-title />
     <navigation />
     <personal-info />

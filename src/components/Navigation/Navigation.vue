@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation">
+  <div class="bg-white pad-20">
     <navigation-item
       v-for="(itemData, index) in navList"
       :config="itemData.config"
@@ -51,6 +51,4 @@
 </script>
 
 <style lang="sass" scoped>
-  .navigation
-    padding: 15px
 </style>
