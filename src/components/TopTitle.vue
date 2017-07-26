@@ -11,13 +11,14 @@
 </script>
 
 <style lang="sass" scoped>
-  p
-    padding: 10px 0
-
   .title
-    font-size: 26px
+    padding-top: 20px
+    font-size: 24px
+    font-weight: normal
 
   .desc
+    padding: 10px 0
     line-height: 30px
-    font-size: 16px
+    font-size: 13px
+    color: #ddd
 </style>
