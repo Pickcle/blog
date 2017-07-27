@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  import EventBus from 'src/bus.js'
+
   export default {
     props: {
       isSelected: Boolean,
@@ -24,7 +26,7 @@
 
     methods: {
       navigate () {
-        window.app.$emit('navigate', this.config.route)
+        EventBus.$emit('navigate', this.config.route)
         this.$router.push(this.config.route)
       }
     }

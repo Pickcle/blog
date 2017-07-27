@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  import EventBus from 'src/bus.js'
+
   const DURATION = 2
   let timer = null
 
@@ -19,7 +21,7 @@
     },
 
     mounted () {
-      window.app.$on('showMsg', (msg) => {
+      EventBus.$on('showMsg', (msg) => {
         this.message = msg
         if (this.isShow) {
           clearTimeout(timer)

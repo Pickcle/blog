@@ -12,6 +12,7 @@
 <script>
   import NavList from './config.js'
   import NavigationItem from './NavigationItem.vue'
+  import EventBus from 'src/bus.js'
 
   export default {
     data () {
@@ -34,7 +35,7 @@
     },
 
     mounted () {
-      window.app.$on('navigate', (routeName) => {
+      EventBus.$on('navigate', (routeName) => {
         this.navList.forEach(itemData => {
           itemData.isSelected = itemData.config.route === routeName
         })
@@ -42,7 +43,7 @@
       })
 
       if (this.$route.path !== '/') {
-        window.app.$emit('navigate', this.$route.path.slice(1))
+        EventBus.$emit('navigate', this.$route.path.slice(1))
       }
 
       console.log('xhjLog: router', this.$route.path)
