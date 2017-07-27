@@ -33,5 +33,7 @@
 
 <style lang="sass" scoped>
   .navigation-item
-    margin: 10px 0
+    font-size: 13px
+    color: #555
+    line-height: 2
 </style>
