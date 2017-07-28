@@ -45,8 +45,6 @@
       if (this.$route.path !== '/') {
         EventBus.$emit('navigate', this.$route.path.slice(1))
       }
-
-      console.log('xhjLog: router', this.$route.path)
     }
   }
 </script>
