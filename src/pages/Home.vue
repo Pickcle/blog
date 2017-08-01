@@ -31,16 +31,17 @@
   export default {
     data () {
       return {
-        blogs: [1, 2, 3, 4, 5]
+        blogs: [{
+          title: '标题',
+          date: '2017-4-1',
+          link: 'https://www.baidu.com',
+          times: 123
+        }]
       }
     },
 
-    created () {
-
-    },
-
     render (createElement) {
-      const blogNodes = this.blogs.map((value, index) => {
+      const blogNodes = this.blogs.map(blog => {
         return createElement(
           'article',
           {
@@ -50,10 +51,10 @@
             createElement(
               'a',
               {
-                href: 'www.baidu.com',
+                href: blog.link,
                 class: 'article-title p-rel c-pointer'
               },
-              '标题'
+              blog.title
             ),
             createElement(
               'div',
@@ -76,7 +77,7 @@
                       {
                         style: 'padding-left: 5px'
                       },
-                      '发表于'
+                      '发表于' + blog.date
                     )
                   ]
                 ),
@@ -121,7 +122,7 @@
                       {
                         style: 'padding-left: 5px'
                       },
-                      '阅读次数'
+                      '阅读次数' + blog.times
                     )
                   ]
                 )
@@ -156,7 +157,7 @@
 <style lang="sass" scoped>
   .article-container
     width: 100%
-    padding: 30px
+    padding: 5px 30px 30px 30px
 
     .article
       margin-top: 20px
