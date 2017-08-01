@@ -6,10 +6,25 @@ var distPath = path.resolve(__dirname, '../dist')
 
 function readBlogs () {
   var blogs = []
+
+  if (!fs.existsSync(distPath)) {
+    fs.mkdir(distPath, (err) => {
+      if (err) {
+        console.log(err)
+      }
+    })
+  }
+
+  fs.writeFile(`${distPath}/blogInfo.js`, '', (err) => {
+    if (err) {
+      console.log(`clear failed: blogInfo.js, ${err}`)
+      return
+    }
+    console.log(`clear succeeded: blogInfo.js`)
+  })
+
   fs.readdir(blogsPath, function (err, files) {
-    console.log(files)
     files.forEach(function (file) {
-      console.log(file)
       var date = file.match(/\d+-\d+-\d+/)[0]
       var dateWithSlash = date.replace('-', '/')
       var title = file.match(/\d+-\d+-\d+-(.*)\.markdown/)[1]
@@ -20,22 +35,31 @@ function readBlogs () {
       }
 
       fs.readFile(`${blogsPath}/${file}`, function (err, data) {
+        if (err) {
+          console.log('read file failed', err)
+          return
+        }
         var text = data.toString()
-        var categoryText = text.match(/categories:.*/g)[0].replace(' ', '/')
+        var categoryText = text.match(/categories:.*/g)[0].split(' ')
+        categoryText.splice(0, 1)
+        categoryText = categoryText.join('/')
 
         blog.link = `https://pickcle.github.io/${categoryText}/${dateWithSlash}/${title}.html`
+        blogs.push(blog)
       })
     })
   })
 
-  fs.writeFile(`${distPath}/blogInfo.js`, blogs, (err) => {
-    if (err) {
-      console.log(`build failed: blogInfo.js, ${err}`)
-    } else {
-      console.log(`build succeeded: blogInfo.js`)
-    }
-  })
+  setTimeout(function () {
+    fs.writeFile(`${distPath}/blogInfo.js`, JSON.stringify(blogs), (err) => {
+      if (err) {
+        console.log(`write failed: blogInfo.js, ${err}`)
+        return
+      }
+      console.log(`write succeeded: blogInfo.js`)
+    })
+  }, 1000)
+
 }
 
-// readBlogs()
-console.log(process.env.NODE_ENV)
+module.exports = exports = readBlogs
