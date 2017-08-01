@@ -15,14 +15,6 @@ function readBlogs () {
     })
   }
 
-  fs.writeFile(`${distPath}/blogInfo.js`, '', (err) => {
-    if (err) {
-      console.log(`clear failed: blogInfo.js, ${err}`)
-      return
-    }
-    console.log(`clear succeeded: blogInfo.js`)
-  })
-
   fs.readdir(blogsPath, function (err, files) {
     files.forEach(function (file) {
       var date = file.match(/\d+-\d+-\d+/)[0]
@@ -51,7 +43,7 @@ function readBlogs () {
   })
 
   setTimeout(function () {
-    fs.writeFile(`${distPath}/blogInfo.js`, JSON.stringify(blogs), (err) => {
+    fs.writeFile(`${distPath}/blogsInfo.js`, 'export default ' + JSON.stringify(blogs), (err) => {
       if (err) {
         console.log(`write failed: blogInfo.js, ${err}`)
         return
