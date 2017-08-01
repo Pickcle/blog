@@ -36,6 +36,4 @@
 
       a
         display: block
-        text-decoration: none
-        color: #555
 </style>
