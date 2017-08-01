@@ -18,6 +18,9 @@
             <span>阅读次数</span>
           </span>
         </div>
+        <div class="link">
+          <a class="more-read" href="www.baidu.com">阅读全文>></a>
+        </div>
         <div class="line"></div>
       </article>
     </div>
@@ -187,17 +190,17 @@
       .line
         border-bottom: 1px solid #555
 
-      .link
-
-        .more-read
-          font-size: 14px
-          border: 2px solid #222
-          padding: 2px 5px
-          transition: background-color 0.2s
-          transition: color 0.2s
-
-          &:hover
-            background-color: #222
-            color: #fff
+      // .link
+      //
+      //   .more-read
+      //     font-size: 14px
+      //     border: 2px solid #222
+      //     padding: 2px 5px
+      //     transition: background-color 0.2s
+      //     transition: color 0.2s
+      //
+      //     &:hover
+      //       background-color: #222
+      //       color: #fff
 
 </style>
