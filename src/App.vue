@@ -1,6 +1,6 @@
 <template>
   <div class="app w-100">
-    <img src="./images/bg.jpg" />
+    <img class="bg" src="./images/bg.jpg" />
     <div class="left-part f-left p-rel c-default">
       <side-bar />
     </div>
@@ -26,8 +26,8 @@
 </script>
 
 <style lang="sass" scoped>
-  img
-    position: absolute
+  .bg
+    position: fixed
     top: 0
     left: 0
     height: 100%
