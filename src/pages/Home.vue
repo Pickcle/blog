@@ -28,15 +28,12 @@
 </template> -->
 
 <script>
+  import blogsInfo from '../../dist/blogsInfo.js'
+
   export default {
     data () {
       return {
-        blogs: [{
-          title: '标题',
-          date: '2017-4-1',
-          link: 'https://www.baidu.com',
-          times: 123
-        }]
+        blogs: blogsInfo
       }
     },
 
@@ -51,7 +48,9 @@
             createElement(
               'a',
               {
-                href: blog.link,
+                attrs: {
+                  href: blog.link
+                },
                 class: 'article-title p-rel c-pointer'
               },
               blog.title
