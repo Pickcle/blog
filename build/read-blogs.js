@@ -18,7 +18,7 @@ function readBlogs () {
   fs.readdir(blogsPath, function (err, files) {
     files.forEach(function (file) {
       var date = file.match(/\d+-\d+-\d+/)[0]
-      var dateWithSlash = date.replace('-', '/')
+      var dateWithSlash = date.replace(/-/g, '/')
       var title = file.match(/\d+-\d+-\d+-(.*)\.markdown/)[1]
 
       var blog = {
@@ -37,6 +37,7 @@ function readBlogs () {
         categoryText = categoryText.join('/')
 
         blog.link = `https://pickcle.github.io/${categoryText}/${dateWithSlash}/${title}.html`
+        blog.link = blog.link.replace(/:\s/g, '-')
         blogs.push(blog)
       })
     })
