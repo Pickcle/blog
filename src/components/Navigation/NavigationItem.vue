@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation-item" :class="{ 'color-blue': isSelected }" @click="navigate">
+  <div class="navigation-item c-pointer" :class="{ 'color-blue': isSelected }" @click="navigate">
     <i :class="computedClass" />
     {{ config.name }}
   </div>
