@@ -28,12 +28,12 @@
 </template> -->
 
 <script>
-  import blogsInfo from '../../dist/blogsInfo.js'
-
+  import utils from '../utils.js'
+  
   export default {
     data () {
       return {
-        blogs: blogsInfo
+        blogs: utils.getBlogsInfo()
       }
     },
 
