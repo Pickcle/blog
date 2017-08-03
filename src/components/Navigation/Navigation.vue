@@ -44,6 +44,8 @@
 
       if (this.$route.path !== '/') {
         EventBus.$emit('navigate', this.$route.path.slice(1))
+      } else {
+        EventBus.$emit('navigate', 'home')
       }
     }
   }
