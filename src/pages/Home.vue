@@ -1,30 +1,18 @@
 <template>
   <div>
     <div class="article-container bg-white">
-      <article class="article" v-for="blog in blogs">
-        <a class="article-title p-rel" :href="blog.link">{{ blog.title }}</a>
-        <div class="sub-title">
-          <span>
-            <i class="d-i-block fa fa-calendar-o"></i>
-            <span>发表于{{ blog.date }}</span>
-          </span>
-          <span>
-            <span class="divider">|</span>
-            <i class="d-i-block fa fa-comment-o"></i>
-          </span>
-          <span>
-            <span class="divider">|</span>
-            <i class="d-i-block fa fa-eye"></i>
-            <span>阅读次数{{ blog.times }}</span>
-          </span>
-        </div>
-        <div class="line"></div>
-      </article>
+      <article-item
+        class="article"
+        v-for="(blog, index) in blogs"
+        :blog="blog"
+        :key="'blog' + index"
+      />
     </div>
   </div>
 </template>
 
 <script>
+  import ArticleItem from 'src/components/ArticleItem.vue'
   import utils from '../utils.js'
 
   export default {
@@ -32,6 +20,10 @@
       return {
         blogs: utils.getBlogsInfo()
       }
+    },
+
+    components: {
+      ArticleItem
     }
   }
 </script>
@@ -40,37 +32,4 @@
   .article-container
     width: 100%
     padding: 5px 30px 30px 30px
-
-    .article
-      margin-top: 20px
-
-      .article-title
-        font-size: 26px
-
-        &:after
-          content: ""
-          position: absolute
-          bottom: 0
-          left: 0
-          background-color: #000
-          width: 100%
-          height: 2px
-          transform: scaleX(0)
-          transition: transform 0.2s
-
-        &:hover
-          &:after
-            transform: scaleX(1)
-
-      .sub-title
-        margin: 10px 0 20px
-        font-size: 12px
-        color: #999
-
-        .divider
-          padding: 0 5px
-
-      .line
-        border-bottom: 1px solid #555
-
 </style>
