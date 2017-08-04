@@ -1,5 +1,5 @@
 <template>
-  <div class="app w-100">
+  <div class="w-100 clear">
     <img class="bg" src="./images/bg.jpg" />
     <div class="left-part f-left p-rel c-default">
       <side-bar />
@@ -7,6 +7,7 @@
     <div class="right-part f-left p-rel c-default">
       <router-view />
     </div>
+    <page-footer class="p-rel" />
     <div class="message-box w-100">
       <message-box />
     </div>
@@ -16,11 +17,13 @@
 <script>
   import SideBar from './components/SideBar.vue'
   import MessageBox from './components/MessageBox.vue'
+  import PageFooter from './components/PageFooter.vue'
 
   export default {
     components: {
       SideBar,
-      MessageBox
+      MessageBox,
+      PageFooter
     }
   }
 </script>
