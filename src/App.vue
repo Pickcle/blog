@@ -1,12 +1,14 @@
 <template>
-  <div class="w-100 clear">
+  <div class="w-100">
     <img class="bg" src="./images/bg.jpg" />
-    <div class="left-part f-left p-rel c-default">
-      <side-bar />
-    </div>
-    <div class="right-part f-left p-rel c-default">
-      <router-view />
-    </div>
+    <main class="clear">
+      <div class="left-part f-left p-rel c-default">
+        <side-bar />
+      </div>
+      <div class="right-part f-left p-rel c-default">
+        <router-view />
+      </div>
+    </main>
     <page-footer class="p-rel" />
     <div class="message-box w-100">
       <message-box />
