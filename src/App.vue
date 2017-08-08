@@ -1,7 +1,7 @@
 <template>
   <div class="w-100">
     <img class="bg" src="./images/bg.jpg" />
-    <main class="clear">
+    <main class="main clear">
       <div class="left-part f-left p-rel c-default">
         <side-bar />
       </div>
@@ -39,13 +39,17 @@
     width: 100%
     object-fit: cover
 
+  .main
+    position: relative
+    border-top: 3px solid #000
+
   .left-part
     left: 15%
-    width: 20%
+    width: 15%
 
   .right-part
     left: 15%
-    width: 50%
+    width: 55%
     margin: 0 20px
 
   .message-box
