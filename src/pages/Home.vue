@@ -31,5 +31,6 @@
 <style lang="sass" scoped>
   .article-container
     width: 100%
+    box-sizing: border-box
     padding: 5px 30px 30px 30px
 </style>
