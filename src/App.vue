@@ -6,7 +6,7 @@
         <side-bar />
       </div>
       <div class="right-part f-left p-rel c-default">
-        <router-view />
+        <router-view :style="computedHeight"/>
       </div>
     </main>
     <page-footer class="p-rel" />
@@ -26,6 +26,13 @@
       SideBar,
       MessageBox,
       PageFooter
+    },
+
+    computed: {
+      computedHeight () {
+        console.log('xhjLog: window.innerHeight', 'min-height: ' + window.innerHeight + 'px')
+        return 'min-height: ' + window.innerHeight + 'px'
+      }
     }
   }
 </script>
