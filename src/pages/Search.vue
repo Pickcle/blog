@@ -2,7 +2,7 @@
   <div>
     <div class="input-bar">
       <i class="fa fa-search icon" />
-      <input class="search-input" v-model="searchText" placeholder="enter" maxlength="10" @keyup.enter="onEnter"/>
+      <input class="search-input" v-model="searchText" placeholder="search" maxlength="10" @keyup.enter="onEnter"/>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@
     margin: 30px
     background-color: #fff
     border: 1px solid #999
-    color: #999
+    // color: #999
 
     .icon
       position: relative
@@ -44,5 +44,5 @@
       border: none
       width: 350px
       font-size: 16px
-      color: #999
+      // color: #999
 </style>
