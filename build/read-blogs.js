@@ -55,4 +55,4 @@ function readBlogs () {
 
 }
 
-module.exports = exports = readBlogs
+readBlogs()
