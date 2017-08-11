@@ -4,6 +4,9 @@ var path = require('path')
 var blogsPath = path.resolve(__dirname, '../../pickcle.github.io/_posts')
 var distPath = path.resolve(__dirname, '../dist')
 
+var connectDb = require('../server/mongodb/connect.js')
+var DB = require('../server/mongodb/DB.js')
+
 function readBlogs () {
   var blogs = []
 
@@ -39,6 +42,23 @@ function readBlogs () {
         blog.link = `https://pickcle.github.io/${categoryText}/${dateWithSlash}/${title}.html`
         blog.link = blog.link.replace(/:\s/g, '-')
         blogs.push(blog)
+
+        connectDb(DB.NODE, (err, db) => {
+          db.collection('blog').findOne({ key: blog.link }, (err, doc) => {
+            if (doc) {
+              blog.watchTimes = doc.watchTimes
+              db.close()
+            } else {
+              blog.watchTimes = 0
+              db.collection('blog').insert({
+                key: blog.link,
+                watchTimes: 0
+              }, (err, result) => {
+                db.close()
+              })
+            }
+          })
+        })
       })
     })
   })
