@@ -1,4 +1,5 @@
 var connectDb = require('../mongodb/connect.js')
+var DB = require('../mongodb/DB.js')
 
 /**
  * @return 0：数据库操作失败，1：已注册过，2：注册成功
@@ -7,7 +8,7 @@ const signup = (req, res) => {
   const user_name = req.query.user_name
   const password = req.query.password
 
-  connectDb((err, db) => {
+  connectDb(DB.NODE, (err, db) => {
     db.collection('user').findOne({ user_name }, (err, doc) => {
       if (doc) {
         res.write(JSON.stringify({ result: 1 }))

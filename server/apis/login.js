@@ -1,10 +1,11 @@
 var connectDb = require('../mongodb/connect.js')
+var DB = require('../mongodb/DB.js')
 
 const login = req => {
   const user_name = req.query.user_name
   const password = req.query.password
 
-  mc.then(db => {
+  connectDb(DB.NODE, (err, db) => {
     db.collection('user').insert({
       user_name,
       password

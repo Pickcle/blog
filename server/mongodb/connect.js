@@ -1,8 +1,7 @@
 var MongoClient = require('mongodb').MongoClient
-var NODE_DB = 'mongodb://localhost:27017/node'
 
-function connectDb (callback) {
-  MongoClient.connect(NODE_DB, callback)
+function connectDb (dbAddress, callback) {
+  MongoClient.connect(dbAddress, callback)
 }
 
 module.exports = exports = connectDb
