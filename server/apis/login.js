@@ -1,7 +1,7 @@
 var connectDb = require('../mongodb/connect.js')
 var DB = require('../mongodb/DB.js')
 
-const login = req => {
+const login = (req, res) => {
   const user_name = req.query.user_name
   const password = req.query.password
 
@@ -11,7 +11,6 @@ const login = req => {
       password
     }, (err, result) => {
       if (err) {
-        console.log(err)
         res.write(JSON.stringify({ result: 0 }))
         res.end()
         return
