@@ -30,7 +30,6 @@
 
     computed: {
       computedHeight () {
-        console.log('xhjLog: window.innerHeight', 'min-height: ' + window.innerHeight + 'px')
         return 'min-height: ' + window.innerHeight + 'px'
       }
     }
