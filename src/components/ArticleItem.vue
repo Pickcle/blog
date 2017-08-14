@@ -1,6 +1,6 @@
 <template>
   <div class="article">
-    <a class="article-title p-rel" :href="blog.link">{{ blog.title }}</a>
+    <a class="article-title p-rel" :href="blog.link" @click.prevent="onBlogClick">{{ blog.title }}</a>
     <div class="sub-title">
       <span>
         <i class="d-i-block fa fa-calendar-o"></i>
@@ -13,20 +13,29 @@
       <span>
         <span class="divider">|</span>
         <i class="d-i-block fa fa-eye"></i>
-        <span>阅读次数{{ blog.times }}</span>
+        <span>阅读次数{{ blog.watchTimes }}</span>
       </span>
     </div>
   </div>
 </template>
 
 <script>
+  // import { watch } from '../apis'
+  import apis from '../apis'
+
   export default {
     props: {
       blog: {
         title: String,
         link: String,
         date: String,
-        times: Number
+        watchTimes: Number
+      }
+    },
+
+    methods: {
+      onBlogClick () {
+        apis.watch(this.blog.link)
       }
     }
   }
