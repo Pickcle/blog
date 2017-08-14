@@ -1,78 +1,95 @@
+/**
+ * 读取pickcle.github.io下的post文件夹，将博客数据存入数据库
+ * Author: xiaohuajun@bilibili.com
+ * Date: 2017.8.14
+ */
 var fs = require('fs')
 var path = require('path')
-
-var blogsPath = path.resolve(__dirname, '../../pickcle.github.io/_posts')
-var distPath = path.resolve(__dirname, '../dist')
-
 var connectDb = require('../server/mongodb/connect.js')
 var DB = require('../server/mongodb/DB.js')
 
-function readBlogs () {
-  var blogs = []
+var showdown = require('showdown')
+showdown.setFlavor('github')
+var converter = new showdown.Converter()
 
-  if (!fs.existsSync(distPath)) {
-    fs.mkdir(distPath, (err) => {
+var blogPath = path.resolve(__dirname, '../../pickcle.github.io/_posts')
+// var distPath = path.resolve(__dirname, '../dist')
+var templatePath = path.resolve(__dirname, '../src/pages/BlogTemplate.vue')
+var distPath = path.resolve(__dirname, '../src/pages/blogs')
+
+// if (!fs.existsSync(distPath)) {
+//   fs.mkdir(distPath, (err) => {
+//     if (err) {
+//       console.log(err)
+//     }
+//   })
+// }
+
+fs.readdir(blogPath, function (err, files) {
+  files.forEach(function (file) {
+    var date = file.match(/\d+-\d+-\d+/)[0]
+    var blogId = ~~date.replace(/-/g, '')
+    var watchTimes = 0
+    var title = file.match(/\d+-\d+-\d+-(.*)\.markdown/)[1]
+
+    fs.readFile(`${blogPath}/${file}`, function (err, blogData) {
       if (err) {
-        console.log(err)
+        console.log('read file failed', err)
+        return
       }
-    })
-  }
+      var blogText = blogData.toString()
+      var blogHtml = converter.makeHtml(blogText)
+      // var categoryText = blogText.match(/categories:.*/g)[0].split(' ')
+      // categoryText.splice(0, 1)
+      // categoryText = categoryText.join('/')
 
-  fs.readdir(blogsPath, function (err, files) {
-    files.forEach(function (file) {
-      var date = file.match(/\d+-\d+-\d+/)[0]
-      var dateWithSlash = date.replace(/-/g, '/')
-      var title = file.match(/\d+-\d+-\d+-(.*)\.markdown/)[1]
+      // 依照模板，生成博客文件
+      fs.readFile(templatePath, (err, template) => {
+        var templateText = template.toString()
+        // templateText = templateText.replace(/{{ title }}/g, title)
+        templateText = templateText.replace('content', blogHtml)
 
-      var blog = {
-        date,
-        title
-      }
+        fs.writeFile(`${distPath}/Blog_${blogId}.vue`, templateText, (err) => {
+          if (err) {
+            console.log(`build failed: Blog_${blogId}.vue, ${err}`)
+          } else {
+            console.log(`build succeeded: Blog_${blogId}.vue`)
+          }
+        })
+      })
 
-      fs.readFile(`${blogsPath}/${file}`, function (err, data) {
-        if (err) {
-          console.log('read file failed', err)
-          return
-        }
-        var text = data.toString()
-        var categoryText = text.match(/categories:.*/g)[0].split(' ')
-        categoryText.splice(0, 1)
-        categoryText = categoryText.join('/')
+      // github.io上的博客地址
+      // var link = `https://pickcle.github.io/${categoryText}/${dateWithSlash}/${title}.html`
+      // link = link.replace(/:\s/g, '-')
 
-        blog.link = `https://pickcle.github.io/${categoryText}/${dateWithSlash}/${title}.html`
-        blog.link = blog.link.replace(/:\s/g, '-')
-        blogs.push(blog)
-
-        connectDb(DB.NODE, (err, db) => {
-          db.collection('blog').findOne({ key: blog.link }, (err, doc) => {
-            if (doc) {
-              blog.watchTimes = doc.watchTimes
+      // 存入数据库
+      connectDb(DB.NODE, (err, db) => {
+        db.collection('blog').findOne({ blogId: blogId }, (err, doc) => {
+          // 如果是第一次存
+          if (!doc) {
+            db.collection('blog').insert({
+              blogId,
+              watchTimes,
+              date,
+              title
+            }, (err, result) => {
               db.close()
-            } else {
-              blog.watchTimes = 0
-              db.collection('blog').insert({
-                key: blog.link,
-                watchTimes: 0
-              }, (err, result) => {
-                db.close()
-              })
-            }
-          })
+            })
+          } else {
+            db.close()
+          }
         })
       })
     })
   })
+})
 
-  setTimeout(function () {
-    fs.writeFile(`${distPath}/blogsInfo.js`, 'export default ' + JSON.stringify(blogs), (err) => {
-      if (err) {
-        console.log(`write failed: blogInfo.js, ${err}`)
-        return
-      }
-      console.log(`write succeeded: blogInfo.js`)
-    })
-  }, 1000)
-
-}
-
-readBlogs()
+// setTimeout(function () {
+//   fs.writeFile(`${distPath}/blogsInfo.js`, 'export default ' + JSON.stringify(blogs), (err) => {
+//     if (err) {
+//       console.log(`write failed: blogInfo.js, ${err}`)
+//       return
+//     }
+//     console.log(`write succeeded: blogInfo.js`)
+//   })
+// }, 1000)
