@@ -1,17 +1,19 @@
 import axios from 'axios'
+import config from '../../config/index.js'
 
 const exports = {}
 
 let url = ''
 if (process.env.NODE_ENV === 'development') {
-  url = 'http://localhost:9091'
+  url = 'http://localhost:' + config.build.port_api
 } else {
   url = 'http://www.myarki.com'
 }
 
 const getApis = {
   'signup': ['user_name', 'password'],
-  'login': ['user_name', 'password']
+  'login': ['user_name', 'password'],
+  'watch': ['url']
 }
 
 const getApiGenerator = (apiName, paramsList) => {
