@@ -8,12 +8,20 @@ var path = require('path')
 var connectDb = require('../server/mongodb/connect.js')
 var DB = require('../server/mongodb/DB.js')
 
-var showdown = require('showdown')
-showdown.setFlavor('github')
-var converter = new showdown.Converter()
+var marked = require('marked')
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+})
 
 var blogPath = path.resolve(__dirname, '../../pickcle.github.io/_posts')
-// var distPath = path.resolve(__dirname, '../dist')
+var distConfigPath = path.resolve(__dirname, '../dist')
 var templatePath = path.resolve(__dirname, '../src/pages/BlogTemplate.vue')
 var distPath = path.resolve(__dirname, '../src/pages/blogs')
 
@@ -25,6 +33,7 @@ var distPath = path.resolve(__dirname, '../src/pages/blogs')
 //   })
 // }
 
+var blogNames = []
 fs.readdir(blogPath, function (err, files) {
   files.forEach(function (file) {
     var date = file.match(/\d+-\d+-\d+/)[0]
@@ -32,13 +41,17 @@ fs.readdir(blogPath, function (err, files) {
     var watchTimes = 0
     var title = file.match(/\d+-\d+-\d+-(.*)\.markdown/)[1]
 
+    // 读取pickcle.github.io下_posts的博客文件
     fs.readFile(`${blogPath}/${file}`, function (err, blogData) {
       if (err) {
         console.log('read file failed', err)
         return
       }
       var blogText = blogData.toString()
-      var blogHtml = converter.makeHtml(blogText)
+      // 去掉头部信息
+      blogText = blogText.replace(/---(\n.*){4}\n---/, `### ${date}`)
+      // 转成html
+      var blogHtml = marked(blogText)
       // var categoryText = blogText.match(/categories:.*/g)[0].split(' ')
       // categoryText.splice(0, 1)
       // categoryText = categoryText.join('/')
@@ -46,10 +59,12 @@ fs.readdir(blogPath, function (err, files) {
       // 依照模板，生成博客文件
       fs.readFile(templatePath, (err, template) => {
         var templateText = template.toString()
+        templateText = templateText.replace('{content}', blogHtml)
         // templateText = templateText.replace(/{{ title }}/g, title)
-        templateText = templateText.replace('content', blogHtml)
+        var blogName = `Blog_${blogId}.vue`
+        blogNames.push(blogName)
 
-        fs.writeFile(`${distPath}/Blog_${blogId}.vue`, templateText, (err) => {
+        fs.writeFile(`${distPath}/${blogName}`, templateText, (err) => {
           if (err) {
             console.log(`build failed: Blog_${blogId}.vue, ${err}`)
           } else {
@@ -83,6 +98,16 @@ fs.readdir(blogPath, function (err, files) {
     })
   })
 })
+
+setTimeout(function() {
+  fs.writeFile(`${distConfigPath}/blogConfig.js`, 'export default ' + JSON.stringify(blogNames), err => {
+    if (err) {
+      console.log('write blogConfig failed')
+      return
+    }
+    console.log('write blogConfig succeeded')
+  })
+}, 2000)
 
 // setTimeout(function () {
 //   fs.writeFile(`${distPath}/blogsInfo.js`, 'export default ' + JSON.stringify(blogs), (err) => {
