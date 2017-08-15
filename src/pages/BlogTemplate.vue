@@ -1,6 +1,6 @@
 <template>
-  <div>
-    content
+  <div class="router-view-blog">
+    {content}
   </div>
 </template>
 
