@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
+import BlogTemplate from '../pages/BlogTemplate.vue'
+import blogConfig from '../../dist/blogConfig.js'
 
 Vue.use(Router)
 
@@ -11,7 +13,7 @@ const router = new Router()
 const routes = [
   {
     path: '/',
-    component: Home
+    component: BlogTemplate
   },
   {
     path: '/home',
@@ -22,6 +24,18 @@ const routes = [
     component: Search
   }
 ]
+
+// 将src/pages/blogs下自动生成的博客作为路由
+let route
+blogConfig && blogConfig.forEach(blogName => {
+  const blogId = blogName.slice(5, -4)
+  console.log(blogId)
+  route = {
+    path: `/blog/${blogId}`,
+    component: require(`../pages/blogs/${blogName}`)
+  }
+  routes.push(route)
+})
 
 // uppercase the first letter of a word
 // const getComponentName = name => name.replace(/\b\w/g, word => word.toUpperCase()).split('-').join('')
