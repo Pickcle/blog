@@ -6,7 +6,7 @@
         <side-bar />
       </div>
       <div class="right-part f-left p-rel c-default">
-        <router-view :style="computedHeight"/>
+        <router-view class="bg-white router-view" :style="computedHeight"/>
       </div>
     </main>
     <page-footer class="p-rel" />
@@ -57,7 +57,7 @@
     left: 15%
     width: 55%
     margin: 0 20px
-
+    
   .message-box
     position: absolute
     top: 50%
