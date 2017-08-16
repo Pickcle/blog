@@ -27,7 +27,7 @@
     methods: {
       navigate () {
         EventBus.$emit('navigate', this.config.route)
-        this.$router.push(this.config.route)
+        this.$router.push('/' + this.config.route)
       }
     }
   }
