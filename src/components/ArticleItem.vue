@@ -1,6 +1,7 @@
 <template>
   <div class="article">
-    <a class="article-title p-rel" :href="blog.link" @click.prevent="onBlogClick">{{ blog.title }}</a>
+    <router-link :to="'/blog/' + blog.blogId" class="article-title p-rel" @click.prevent.native="onBlogClick">{{ blog.title }}</router-link>
+    <!-- <a class="article-title p-rel" :href="blog.link" @click.prevent="onBlogClick">{{ blog.title }}</a> -->
     <div class="sub-title">
       <span>
         <i class="d-i-block fa fa-calendar-o"></i>
@@ -26,16 +27,16 @@
   export default {
     props: {
       blog: {
-        title: String,
-        link: String,
+        blogId: Number,
         date: String,
+        title: String,
         watchTimes: Number
       }
     },
 
     methods: {
       onBlogClick () {
-        apis.watch(this.blog.link)
+        apis.watch(this.blog.blogId)
       }
     }
   }
