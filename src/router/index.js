@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import Home from '../pages/Home.vue'
 import Search from '../pages/Search.vue'
-import BlogTemplate from '../pages/BlogTemplate.vue'
 import blogConfig from '../../dist/blogConfig.js'
 
 Vue.use(Router)
@@ -13,7 +12,7 @@ const router = new Router()
 const routes = [
   {
     path: '/',
-    component: BlogTemplate
+    component: Home
   },
   {
     path: '/home',
@@ -29,10 +28,9 @@ const routes = [
 let route
 blogConfig && blogConfig.forEach(blogName => {
   const blogId = blogName.slice(5, -4)
-  console.log(blogId)
   route = {
     path: `/blog/${blogId}`,
-    component: require(`../pages/blogs/${blogName}`)
+    component: require(`../pages/blogs/${blogName}`).default
   }
   routes.push(route)
 })
