@@ -13,7 +13,8 @@ if (process.env.NODE_ENV === 'development') {
 const getApis = {
   'signup': ['user_name', 'password'],
   'login': ['user_name', 'password'],
-  'watch': ['url']
+  'watch': ['blogId'],
+  'getBlogInfo': []
 }
 
 const getApiGenerator = (apiName, paramsList) => {
