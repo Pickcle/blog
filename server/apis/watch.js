@@ -2,10 +2,10 @@ const connectDb = require('../mongodb/connect.js')
 const DB = require('../mongodb/DB.js')
 
 const watch = (req, res) => {
-  const url = req.query.url
+  const blogId = ~~req.query.blogId
 
   connectDb(DB.NODE, (err, db) => {
-    db.collection('blog').findOne({ key: url }, (err, result) => {
+    db.collection('blog').findOne({ blogId }, (err, result) => {
       if (err) {
         res.write(JSON.stringify({ ok: 0 }))
         res.end()
@@ -14,7 +14,7 @@ const watch = (req, res) => {
       }
 
       const data = {
-        key: url
+        blogId
       }
       const newData = {
         $set: {
