@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="article-container bg-white">
+    <div class="article-container">
       <article-item
         class="article"
         v-for="(blog, index) in blogs"
@@ -13,17 +13,30 @@
 
 <script>
   import ArticleItem from 'src/components/ArticleItem.vue'
-  import utils from '../utils.js'
+  import apis from '../apis'
+  // import utils from '../utils.js'
 
   export default {
     data () {
       return {
-        blogs: utils.getBlogsInfo()
+        blogs: []
       }
     },
 
     components: {
       ArticleItem
+    },
+
+    methods: {
+      getBlogInfo () {
+        apis.getBlogInfo().then(result => {
+          this.blogs = result.result
+        })
+      }
+    },
+
+    mounted () {
+      this.getBlogInfo()
     }
   }
 </script>
