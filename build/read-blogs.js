@@ -35,6 +35,10 @@ var distPath = path.resolve(__dirname, '../src/pages/blogs')
 
 var blogNames = []
 fs.readdir(blogPath, function (err, files) {
+  if (err) {
+    console.log('readdir failed: ', err)
+    return
+  }
   files.forEach(function (file) {
     var date = file.match(/\d+-\d+-\d+/)[0]
     var blogId = ~~date.replace(/-/g, '')
@@ -44,7 +48,7 @@ fs.readdir(blogPath, function (err, files) {
     // 读取pickcle.github.io下_posts的博客文件
     fs.readFile(`${blogPath}/${file}`, function (err, blogData) {
       if (err) {
-        console.log('read file failed', err)
+        console.log(`read file ${blogPath}/${file} failed: `, err)
         return
       }
       var blogText = blogData.toString()
@@ -58,6 +62,10 @@ fs.readdir(blogPath, function (err, files) {
 
       // 依照模板，生成博客文件
       fs.readFile(templatePath, (err, template) => {
+        if (err) {
+          console.log('read template file failed: ', err)
+          return
+        }
         var templateText = template.toString()
         templateText = templateText.replace('{content}', blogHtml)
         // templateText = templateText.replace(/{{ title }}/g, title)
@@ -66,9 +74,9 @@ fs.readdir(blogPath, function (err, files) {
 
         fs.writeFile(`${distPath}/${blogName}`, templateText, (err) => {
           if (err) {
-            console.log(`build failed: Blog_${blogId}.vue, ${err}`)
+            console.log(`write Blog_${blogId}.vue failed: `, err)
           } else {
-            console.log(`build succeeded: Blog_${blogId}.vue`)
+            console.log(`wrtie succeeded: Blog_${blogId}.vue`)
           }
         })
       })
@@ -79,7 +87,14 @@ fs.readdir(blogPath, function (err, files) {
 
       // 存入数据库
       connectDb(DB.NODE, (err, db) => {
+        if (err) {
+          console.log('connectDb failed: ', err)
+          return
+        }
         db.collection('blog').findOne({ blogId: blogId }, (err, doc) => {
+          if (err) {
+            console.log('find collection failed: ', err)
+          }
           // 如果是第一次存
           if (!doc) {
             db.collection('blog').insert({
@@ -102,7 +117,7 @@ fs.readdir(blogPath, function (err, files) {
 setTimeout(function() {
   fs.writeFile(`${distConfigPath}/blogConfig.js`, 'export default ' + JSON.stringify(blogNames), err => {
     if (err) {
-      console.log('write blogConfig failed')
+      console.log('write blogConfig failed: ', err)
       return
     }
     console.log('write blogConfig succeeded')
