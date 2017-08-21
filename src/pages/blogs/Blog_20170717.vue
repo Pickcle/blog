@@ -14,6 +14,8 @@
 </code></pre></li>
 <li>关闭node进程，同时也关闭端口<pre><code>kill -2 [pid]
 </code></pre></li>
+<li>linux查看端口状态<pre><code>netstat --apn
+</code></pre></li>
 </ul>
 
   </div>
