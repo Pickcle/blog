@@ -4,10 +4,9 @@ var url = require('url')
 var utils = require('../utils.js')
 var config = require('../../config/index.js')
 
-var signup = require('./signup.js')
-var login = require('./login.js')
 var watch = require('./watch.js')
 var getBlogInfo = require('./getBlogInfo.js')
+var search = require('./search.js')
 
 var app = express()
 var server = http.createServer(app)
@@ -23,10 +22,9 @@ async function waitUntilResolve (promise) {
 
 // 所有api
 const handlers = {
-  'signup': signup,
-  'login': login,
   'watch': watch,
-  'getBlogInfo': getBlogInfo
+  'getBlogInfo': getBlogInfo,
+  'search': search
 }
 
 const generateGetHandler = (apiName, handler) => {
