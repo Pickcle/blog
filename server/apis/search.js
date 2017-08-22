@@ -2,8 +2,6 @@ const connectDb = require('../mongodb/connect.js')
 const DB = require('../mongodb/DB.js')
 
 const watch = (req, res) => {
-  console.log(req.query)
-  console.log(req.query.searchText)
   const searchText = req.query.searchText
 
   connectDb(DB.NODE, (err, db) => {
@@ -18,7 +16,7 @@ const watch = (req, res) => {
       result = result.filter(function (value) {
         return value.title.indexOf(searchText) != -1
       })
-      res.write(JSON.stringify({ ok: 1, result: result }))
+      res.write(JSON.stringify({ ok: 1, list: result }))
       res.end()
       db.close()
     })
