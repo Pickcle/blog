@@ -6,21 +6,37 @@
         <input class="search-input" v-model="searchText" placeholder="search" maxlength="10" @keyup.enter="onEnter"/>
       </div>
     </div>
+    <div class="article-container">
+      <article-item
+        v-for="(blog, index) in searchList"
+        :blog="blog"
+        :key="'blog' + index"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   import apis from '../apis'
+  import ArticleItem from '../components/ArticleItem.vue'
 
   export default {
     data () {
       return {
-        searchText: ''
+        searchText: '',
+        searchList: []
       }
     },
+
+    components: {
+      ArticleItem
+    },
+
     methods: {
       onEnter () {
-        apis.search(this.searchText)
+        apis.search(this.searchText).then(result => {
+          this.searchList = result.list
+        })
       }
     }
   }
@@ -51,4 +67,10 @@
         width: 350px
         font-size: 16px
         // color: #999
+
+  .article-container
+    width: 100%
+    box-sizing: border-box
+    padding: 5px 30px 30px 30px
+
 </style>
