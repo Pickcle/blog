@@ -31,6 +31,9 @@
       getBlogInfo () {
         apis.getBlogInfo().then(result => {
           this.blogs = result.result
+          this.blogs.sort((blog1, blog2) => {
+            return blog2.blogId - blog1.blogId
+          })
         })
       }
     },
