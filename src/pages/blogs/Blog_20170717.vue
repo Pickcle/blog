@@ -16,6 +16,10 @@
 </code></pre></li>
 <li>linux查看端口状态<pre><code>netstat --apn
 </code></pre></li>
+<li>linux后台打开mongodb服务器<pre><code>mongod &amp;
+</code></pre></li>
+<li>linux后台打开api服务器<pre><code>node server/apis/index.js &amp;
+</code></pre></li>
 </ul>
 
   </div>
