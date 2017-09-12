@@ -2,7 +2,7 @@
   <div class="personal-info t-center bg-white pad-20">
     <img class="head" src="../images/head.png">
     <p class="name">Pickcle</p>
-    <p class="desc">毕业于华东师范大学，前端码农，爱好网游、桌游，LOL电一钻三，农药王者</p>
+    <p class="desc">华东师范大学软院毕业，前端码农</p>
   </div>
 </template>
 
