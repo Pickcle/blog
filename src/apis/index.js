@@ -5,9 +5,9 @@ const exports = {}
 
 let url = ''
 if (process.env.NODE_ENV === 'development') {
-  url = 'http://localhost:' + config.build.port_api
+  url = `http://localhost:${config.build.port_api}`
 } else {
-  url = 'http://www.myarki.com:' + config.build.port_api
+  url = `http://${window.location.hostname}:${config.build.port_api}`
 }
 
 const getApis = {
